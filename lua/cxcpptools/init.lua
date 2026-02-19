@@ -46,7 +46,7 @@ function M.generate_getter_setter()
   local name_text = vim.treesitter.get_node_text(name_node, bufnr)
 
   -- 构造 getter/setter
-  local getter = string.format("%s get_%s() const { return %s; }", type_text, name_text, name_text)
+  local getter = string.format("[[nodiscard]] auto get_%s() const -> %s { return %s; }", name_text, type_text, name_text)
   local setter = string.format("void set_%s(const %s& val) { %s = val; }", name_text, type_text, name_text)
 
   -- 找 class 节点
@@ -58,7 +58,7 @@ function M.generate_getter_setter()
     class_node = class_node:parent()
   end
   if not class_node then
-    print("未找到 class")
+    print("class not found")
     return
   end
 
