@@ -1,3 +1,4 @@
+-- Generate by GPT(GEMINI):
 local M = {}
 local function get_node_at_cursor(bufnr)
   local cursor = vim.api.nvim_win_get_cursor(0)
@@ -5,7 +6,7 @@ local function get_node_at_cursor(bufnr)
   local col = cursor[2]
   local parser = vim.treesitter.get_parser(bufnr, "cpp")
   if not parser then
-    vim.notify("无法获取 Treesitter parser，请确保已安装 cpp parser")
+    vim.notify("not Treesitter parser，please install cpp parser")
     return
   end
   local tree = parser:parse()[1]
@@ -30,7 +31,7 @@ function M.generate_getter_setter()
     field_node = field_node:parent()
   end
   if not field_node then
-    vim.notify("光标不在类成员上")
+    vim.notify("cursor not on members")
     return
   end
 
@@ -38,7 +39,7 @@ function M.generate_getter_setter()
   local type_node = field_node:field("type")[1]
   local name_node = field_node:field("declarator")[1] or field_node:field("name")[1]
   if not type_node or not name_node then
-    vim.notify("无法解析类型或变量名")
+    vim.notify("not known var name")
     return
   end
   local type_text = vim.treesitter.get_node_text(type_node, bufnr)
@@ -90,7 +91,6 @@ end
 function M.setup()
 end
 
-vim.api.nvim_create_user_command("CppGenGetterSetter", M.generate_getter_setter, {})
-vim.keymap.set("n", ",og", function() M.generate_getter_setter() end, { desc = "gen getter setter" })
+-- vim.api.nvim_create_user_command("CppGenGetterSetter", M.generate_getter_setter, {})
 
 return M
