@@ -12,7 +12,7 @@ for `lazy.nvim`
 
 ```lua
   {
-    dir = vim.fn.expand("~/software/nvim/cxcpptools"),
+    "cxwx/cxcpptools",
     enabled = vim.ifMac,
     opts = {},
     keys = {
@@ -21,7 +21,6 @@ for `lazy.nvim`
         desc = "gen getter setter" },
     }
   },
-
 ```
 
 ## USAGE
