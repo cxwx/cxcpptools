@@ -1,4 +1,5 @@
 -- Generate by GPT(GEMINI):
+-- TODO: to snippet
 local M = {}
 local function get_node_at_cursor(bufnr)
   local cursor = vim.api.nvim_win_get_cursor(0)
@@ -46,8 +47,8 @@ function M.generate_getter_setter()
   local name_text = vim.treesitter.get_node_text(name_node, bufnr)
 
   -- 构造 getter/setter
-  local getter = string.format("[[nodiscard]] auto get_%s() const -> %s { return %s; }", name_text, type_text, name_text)
-  local setter = string.format("void set_%s(const %s& val) { %s = val; }", name_text, type_text, name_text)
+  local getter = string.format("  [[nodiscard]] auto get_%s() const -> %s { return %s; }", name_text, type_text, name_text)
+  local setter = string.format("  void set_%s(const %s& val) { %s = val; }", name_text, type_text, name_text)
 
   -- 找 class 节点
   local class_node = field_node
@@ -79,7 +80,7 @@ function M.generate_getter_setter()
     insert_line = public_line
   else
     insert_line = class_node:start() + 1
-    vim.api.nvim_buf_set_lines(bufnr, insert_line, insert_line, false, { "public:" })
+    vim.api.nvim_buf_set_lines(bufnr, insert_line, insert_line, false, { " public:" })
     insert_line = insert_line + 1
   end
 
