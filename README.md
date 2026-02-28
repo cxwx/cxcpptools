@@ -30,3 +30,5 @@ for `lazy.nvim`
   ```lua
   require('cxcpptools').generate_getter_setter
   ```
+  
+  ![demo](demo/getter_setter.gif)
