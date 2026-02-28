@@ -13,7 +13,6 @@ for `lazy.nvim`
 ```lua
   {
     "cxwx/cxcpptools",
-    enabled = vim.ifMac,
     opts = {},
     keys = {
       { ",og", function() 
